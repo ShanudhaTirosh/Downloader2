@@ -1,0 +1,19 @@
+# ═══════════════════════════════════════════════════════════════
+# Shanu Fx Private Downloader - Requirements
+# Install: pip install -r requirements.txt
+# ═══════════════════════════════════════════════════════════════
+
+# ── UI Framework ──────────────────────────────────────────────────────────────
+customtkinter>=5.2.2        # Modern tkinter UI
+Pillow>=10.0.0              # Image handling (thumbnails, etc.)
+
+# ── Downloader Core ───────────────────────────────────────────────────────────
+yt-dlp>=2024.1.1            # Social media downloader backend
+
+# ── Utilities ────────────────────────────────────────────────────────────────
+requests>=2.31.0            # HTTP downloads
+pyperclip>=1.8.2            # Clipboard access (fallback)
+
+# ── Optional (enhanced features) ─────────────────────────────────────────────
+# libtorrent                # Torrent support (requires separate install)
+# plyer>=2.1.0              # System notifications
