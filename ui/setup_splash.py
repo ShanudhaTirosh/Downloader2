@@ -34,6 +34,24 @@ class SetupSplash(ctk.CTkToplevel):
         self.lift()
         self.focus_force()
 
+        # ── Window icon ───────────────────────────────────────────────────────
+        try:
+            import os, platform
+            assets = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets")
+            if platform.system() == "Windows":
+                ico = os.path.join(assets, "icon.ico")
+                if os.path.exists(ico):
+                    self.iconbitmap(ico)
+            else:
+                png = os.path.join(assets, "icon_256.png")
+                if os.path.exists(png):
+                    from PIL import Image, ImageTk
+                    img = Image.open(png).resize((64, 64), Image.LANCZOS)
+                    self._ico = ImageTk.PhotoImage(img)
+                    self.iconphoto(True, self._ico)
+        except Exception:
+            pass
+
         # Center
         self.update_idletasks()
         sw, sh = self.winfo_screenwidth(), self.winfo_screenheight()

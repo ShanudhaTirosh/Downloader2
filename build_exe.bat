@@ -23,6 +23,7 @@ pyinstaller ^
     --onefile ^
     --windowed ^
     --name "ShanuFxDownloader" ^
+    --icon "assets\icon.ico" ^
     --add-data "assets;assets" ^
     --hidden-import customtkinter ^
     --hidden-import PIL ^

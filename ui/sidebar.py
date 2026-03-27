@@ -143,12 +143,19 @@ class Sidebar(ctk.CTkFrame):
         accent_bar = ctk.CTkFrame(self, height=2, fg_color=COLORS["accent"], corner_radius=0)
         accent_bar.pack(fill="x", side="top")
 
-        # App icon placeholder (unicode symbol)
-        ctk.CTkLabel(
-            logo_frame, text="⬡",
-            font=("Segoe UI", 28, "bold"),
-            text_color=COLORS["accent"],
-        ).place(x=16, y=16)
+        # App icon / logo
+        try:
+            import os
+            from PIL import Image, ImageTk
+            assets = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets")
+            img = Image.open(os.path.join(assets, "icon_256.png")).resize((36, 36), Image.LANCZOS)
+            self._logo_img = ImageTk.PhotoImage(img)
+            ctk.CTkLabel(logo_frame, image=self._logo_img, text="").place(x=10, y=14)
+        except Exception:
+            # Fallback to text symbol if image fails
+            ctk.CTkLabel(logo_frame, text="⬡",
+                         font=("Segoe UI", 28, "bold"),
+                         text_color=COLORS["accent"]).place(x=16, y=16)
 
         ctk.CTkLabel(
             logo_frame, text="Shanu Fx",

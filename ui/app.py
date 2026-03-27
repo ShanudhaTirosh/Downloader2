@@ -198,6 +198,9 @@ class App(ctk.CTk):
         y = (sh - WINDOW_HEIGHT) // 2
         self.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}+{x}+{y}")
 
+        # ── App icon (titlebar + taskbar) ────────────────────────────────────
+        self._set_app_icon()
+
         # Windows enhancements
         if platform.system() == "Windows":
             try:
@@ -350,3 +353,21 @@ class App(ctk.CTk):
 
     def go_to_manager(self):
         self.navigate("manager")
+
+    def _set_app_icon(self):
+        """Set the window icon from assets/icon.ico (Windows) or icon_256.png (other)."""
+        try:
+            assets = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets")
+            if platform.system() == "Windows":
+                ico = os.path.join(assets, "icon.ico")
+                if os.path.exists(ico):
+                    self.iconbitmap(ico)
+            else:
+                png = os.path.join(assets, "icon_256.png")
+                if os.path.exists(png):
+                    from PIL import Image, ImageTk
+                    img = Image.open(png).resize((64, 64), Image.LANCZOS)
+                    self._icon_img = ImageTk.PhotoImage(img)
+                    self.iconphoto(True, self._icon_img)
+        except Exception:
+            pass  # icon is cosmetic — never crash on failure
